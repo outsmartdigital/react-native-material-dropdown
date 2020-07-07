@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 import {
   Text,
   View,
@@ -19,6 +19,7 @@ import DropdownItem from '../item';
 import styles from './styles';
 
 export default class Dropdown extends PureComponent {
+  inputRef = React.createRef();
   static defaultProps = {
     hitSlop: { top: 6, right: 4, bottom: 6, left: 4 },
 
@@ -191,6 +192,7 @@ export default class Dropdown extends PureComponent {
   componentWillReceiveProps({ value }) {
     if (value !== this.props.value) {
       this.setState({ value });
+      this.inputRef.current.setValue(value);
     }
   }
 
@@ -514,6 +516,7 @@ export default class Dropdown extends PureComponent {
         editable={false}
         onChangeText={undefined}
         renderAccessory={renderAccessory}
+        ref={this.inputRef}
       />
     );
   }
